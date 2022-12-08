@@ -1,0 +1,62 @@
+//Second order system
+//Given x1dotold=x2old ; x2dotold=-2*x1old-3*x2old+1
+//y=x1old
+//x1dotnew=x2new ; x2dotnew=-12*x1new-7*x2new+1
+//y=x1new
+//x1t=x2t ; x2t=-12*x1t-7*x2t+12
+//yt=x1t
+clear
+clc
+x1(1,1)=7;
+x2(1,1)=9;
+x1c(1,1)=x1(1,1);
+x2c(1,1)=x2(1,1);
+x1tc(1,1)=x1(1,1);
+x2tc(1,1)=x2(1,1);
+ti = 0;
+tf = 2;
+h = 0.05;
+n = (tf-ti)/h;
+t(1,1) = ti;
+r=43;
+for k=1:n
+    x1(k+1,1) = x1(k,1) + h*x2(k,1);
+    x2(k+1,1) = x2(k,1) + h*(-6*x1(k,1)+5*x2(k,1)+1);
+    y(k+1,1) = x1(k+1,1);
+    x1c(k+1,1)=x1c(k,1)+h*x2c(k,1);
+    x2c(k+1,1)= x2c(k,1)+h*(-12*x1c(k,1)-7*x2c(k,1)+r);
+    yc(k+1,1)=x1c(k+1,1);
+    x1tc(k+1,1)=x1tc(k,1)+h*x2tc(k,1);
+    x2tc(k+1,1)=x2tc(k,1)+h*(-12*x1tc(k,1)-7*x2tc(k,1)+12*r);
+    y1tc(k+1,1)=x1tc(k+1,1);
+    t(k+1,1) = t(k,1) + h;
+end
+
+subplot(2,2,1)
+plot(t,x1,'--')
+plot(t,x1c,'o')
+plot(t,x1tc,'g')
+xlabel('time')
+ylabel('x1  x1c  x1tc')
+legend('x1','x1c','x1tc')
+title('plot of x1/x1c/x1tc vs t')
+
+subplot(2,2,2)
+plot(t,x2,'--')
+plot(t,x2c,'o')
+plot(t,x2tc,'g')
+xlabel('time')
+ylabel('x2  x2c  x2tc')
+legend('x2','x2c','x2tc')
+title('plot of x2/x2c/x2tc vs t')
+
+subplot(2,2,3)
+plot(t,y,'--')
+plot(t,yc,'o')
+plot(t,y1tc,'g')
+xlabel('time')
+ylabel('y yc  ytc')
+legend('y','yc','ytc')
+title('plot of y/yc/ytc vs t')
+
+

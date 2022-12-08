@@ -1,0 +1,57 @@
+clear
+clc
+h=input('enter the step length ')
+t0=input('enter initial value of time ')
+t1=input('enter final value of time ')
+n=(t1-t0)/h;
+t(1,1)=0
+x1(1,1)=0.027;
+x1n(1,1)=x1(1,1);
+x2(1,1)=0.023;
+x2n(1,1)=x2(1,1);
+x3(1,1)=0.024;
+x3n(1,1)=x3(1,1);
+y(1,1)=x1(1,1);
+yn(1,1)=x1n(1,1);
+for k=1:n 
+    x1(k+1,1)=x1(k,1)+h*x2(k,1);
+    x1n(k+1,1)=x1n(k,1)+h*x2n(k,1);
+    x2(k+1,1)=x2(k,1)+h*x3(k,1); 
+    x2n(k+1,1)=x2n(k,1)+h*x3n(k,1)
+   x3(k+1,1)=x3(k,1)+h*(-6*x1(k,1)-11*x2(k,1)-6*x3(k,1)+1);
+   x3n(k+1,1)=x3n(k,1)+h*(-15*x1n(k,1)-74*x2n(k,1)-120*x3n(k,1)+1);
+   y(k+1,1)=x1(k+1,1);
+   yn(k+1,1)=x1n(k+1,1);
+    t(k+1,1)=t(k,1)+h;
+end 
+subplot(2,2,1) 
+plot(t,x1,) 
+plot(t,x1n,'o')
+xlabel('time')
+ylabel('x1/x1n')
+legend('x1','x1n')
+title('plot of x1/x1n vs t')
+
+subplot(2,2,2) 
+plot(t,x2)
+plot(t,x2n,'o')
+xlabel('time')
+ylabel('x2/x2n')
+legend('x2','x2n')
+title('plot of x2/x2n vs t')
+
+subplot(2,2,3)
+plot(t,x3)
+plot(t,x3n,'o')
+xlabel('time')
+ylabel('x3/x3n')
+legend('x3','x3n')
+title('plot of x3/x3n vs t') 
+
+subplot(2,2,4)
+plot(t,y)
+plot(t,yn,'o')
+xlabel('time')
+ylabel('y/yn')
+legend('y','yn')
+title('plot of y/yn vs t')

@@ -1,0 +1,17 @@
+clc
+clear
+function xdot=f(t,x)
+    xdot(1)=x(2);
+    xdot(2)=-6*x(1)+5*x(2)+1;
+endfunction
+x0=[0;0];
+to=0;
+t=0:0.1:2;
+y=ode(x0,to,t,f);
+
+plot(t,y(1,:),'g');
+plot(t,y(2,:),'c');
+xlabel("time");
+ylabel('y');
+legend('y1','y2');
+

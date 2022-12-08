@@ -1,0 +1,78 @@
+
+
+clear
+clc
+h=input('enter the step length ')
+t0=input('enter initial value of time ')
+t1=input('enter final value of time ')
+n=(t1-t0)/h;
+t(1,1)=t0;
+x1(1,1)=60;
+x1n(1,1)=x1(1,1);
+x1c(1,1)=x1(1,1);
+x2(1,1)=20;
+x2n(1,1)=x2(1,1);
+x2c(1,1)=x2(1,1);
+x3(1,1)=40;
+x3n(1,1)=x3(1,1);
+x3c(1,1)=x3(1,1);
+y(1,1)=x1(1,1);
+yn(1,1)=x1n(1,1);
+yc(1,1)=x1c(1,1);
+r=5;
+N=120;
+for k=1:n 
+    x1(k+1,1)=x1(k,1)+h*x2(k,1);
+    x1n(k+1,1)=x1n(k,1)+h*x2n(k,1);
+    x1c(k+1,1)=x1c(k,1)+h*x2c(k,1);
+    x2(k+1,1)=x2(k,1)+h*x3(k,1); 
+    x2n(k+1,1)=x2n(k,1)+h*x3n(k,1);
+    x2c(k+1,1)=x2c(k,1)+h*x3c(k,1);
+   x3(k+1,1)=x3(k,1)+h*(-6*x1(k,1)-11*x2(k,1)-6*x3(k,1)+r);
+   x3n(k+1,1)=x3n(k,1)+h*(-120*x1n(k,1)-74*x2n(k,1)-15*x3n(k,1)+N*r);
+   x3c(k+1,1)=x3c(k,1)+h*(-120*x1c(k,1)-74*x2c(k,1)-15*x3c(k,1)+r);
+   y(k+1,1)=x1(k+1,1);
+   yn(k+1,1)=x1n(k+1,1);
+   yc(k+1,1)=x1c(k+1,1);
+    t(k+1,1)=t(k,1)+h;   
+end 
+subplot(2,2,1) 
+plot(t,x1) 
+plot(t,x1n,'o')
+plot(t,x1c,'*')
+xlabel('time')
+ylabel('x1/x1n/x1c')
+legend('x1','x1n','x1c')
+title('plot of x1/x1c/x1tc vs t')
+
+subplot(2,2,2) 
+plot(t,x3)
+plot(t,x3n,'o')
+plot(t,x3c,'*')
+xlabel('time')
+ylabel('x3/x3n/x3c')
+legend('x3','x3n','x3c')
+title('plot of x3/x3c/x3tc vs t')
+
+subplot(2,2,3) 
+plot(t,x2)
+plot(t,x2n,'o')
+plot(t,x2c,'*')
+xlabel('time')
+ylabel('x2/x2n/x2c')
+legend('x2','x2n','x2c')
+title('plot of x2/x2c/x2tc vs t')
+
+subplot(2,2,4)
+plot(t,y)
+plot(t,yn,'o')
+plot(t,yc,'*')
+xlabel('time')
+ylabel('y/yn/yc')
+legend('y','yn','yc')
+title('plot of y/yc/ytc vs t')
+
+/*enter the step length 0.05
+enter initial value of time 0
+enter final value of time 5*/
+
